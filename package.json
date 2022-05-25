@@ -5,12 +5,19 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "vue-cli-service build && firebase deploy"
   },
   "dependencies": {
+    "bootstrap": "^5.1.3",
+    "bootstrap-vue": "^2.22.0",
     "core-js": "^3.8.3",
-    "vue": "^3.2.13",
-    "vue-router": "^4.0.3"
+    "firebase": "^9.8.1",
+    "vue": "^3.2.36",
+    "vue-final-modal": "^3.4.4",
+    "vue-router": "^4.0.3",
+    "vue-sidebar-menu": "^5.2.3",
+    "vue3-carousel": "^0.1.40"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
