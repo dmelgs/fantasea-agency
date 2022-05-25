@@ -87,7 +87,6 @@
                 <td>{{ data.seating_capacity }}</td>
                 <td>{{ data.contact_number }}</td>
                 <td>{{ data.email }}</td>
-                <td> <button @click.prevent="deleteData(data.pumpboat_name)" class="btn btn-danger">Remove</button></td>
                 <td> <button @click.prevent="messageBoat(data.pumpboat_name)" class="btn btn-success">Message</button></td>
               </tr>
             </tbody>

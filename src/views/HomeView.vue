@@ -62,6 +62,8 @@
                   <div class="card-body">
                     <h4 class="card-title">Located in: {{ province }}</h4>
                     <p class="card-text">{{ description }}</p>
+                    <h4 class="card-title" style="text-align:left">Agency Name:<a class="text-dark" @click="goToAgency(agency_name)">
+                        <strong>{{ agency_name }}</strong></a> </h4>
                     <h4 class="card-title" style="text-align:left">Activites: <strong>{{ activities }}</strong> </h4>
                     <h4 class="card-title" style="text-align:left">Price: <strong>{{ price }} Php</strong> </h4>
                     <h4 class="card-title" style="text-align:left">Gallery</h4>
@@ -243,7 +245,10 @@ export default {
         })
       })
 
-    }//end view method
+    },//end view method
+    async goToAgency(id) {
+      this.$router.push({ name: 'profile', params: { id: id } })
+    }
   }
 }
 </script>

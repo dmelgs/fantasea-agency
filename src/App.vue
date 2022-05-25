@@ -198,7 +198,7 @@ export default {
               let bookingList = [];
               Object.keys(data).forEach((key) => {
                 console.log(key)
-                if (data[key].agency_name == this.$route.params.id) {
+                if (data[key].agency_name == this.agency_name) {
                   bookingList.push({
                     reference_id: key,
                     customer_name: data[key].customer_name,

@@ -347,9 +347,7 @@ export default {
         this.isResultBad = "Include a base price";
         return;
       }
-      const metadata = {
-        contentType: 'image/jpeg/png',
-      };
+      
       const storageRef = sRef(storage, 'travel_agency/' + this.username + '/destinations/' + this.destination_name + '/' + this.imageName);
       const uploadTask = uploadBytesResumable(storageRef, this.imageData);
       uploadTask.on('state_changed',
@@ -429,7 +427,8 @@ export default {
         remove(ref(db, '/destinations/' + id), {
         })
           .then(() => {
-            console.log("removed success: ");
+            alert("removed success: ");
+            this.$router.go;
           }).catch((error) => {
             console.log(error);
           });

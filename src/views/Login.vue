@@ -88,8 +88,8 @@
 
 <script>
 /* eslint-disable */
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, ref,set} from "firebase/database";
 
 export default {
     name: 'login',
@@ -141,6 +141,7 @@ export default {
                 });
         },
         async signUp(id) { // create user in Authentication Database
+          const db = getDatabase();
             if (this.email == "" || this.password == "" || this.name == "" ||
                 this.contact == "" || this.street == "" || this.city == "" || this.province == "" || this.postal == ""
             ) {

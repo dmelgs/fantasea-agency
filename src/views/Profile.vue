@@ -10,14 +10,10 @@
                 <div
                   class="col-xl-4 col-md-4 d-flex justify-content-lg-start justify-content-md-start justify-content-center">
                   <ul>
-                    <li v-if="postList.length">
-                      <div class="counter">{{ postList.length }}</div>
+                    <li v-show="postList.length > -1">
+                      <div class="counter">{{postList.length}}</div>
                       <div class="heading">Post</div>
-                    </li>
-                    <li>
-                      <div class="counter">30</div>
-                      <div class="heading">Reviews</div>
-                    </li>
+                    </li>               
                   </ul>
                 </div>
                 <div class="col-xl-4 col-md-4 d-flex justify-content-center">
@@ -35,11 +31,6 @@
                   <div class="follow">
                     <button class="btn btn-primary" v-if="isUser"
                       @click.prevent="updateProfile(agency_name)">Edit</button>
-                    <button class="btn  btn-primary" v-else @click="openChat">
-                      <router-link :to="{ name: 'chatbox', params: { id: agency_name } }">
-                      </router-link>
-                      Chat
-                    </button>
                   </div>
                 </div>
               </div>
@@ -104,7 +95,7 @@
                 </div>
               </div>
               <div v-show="isViewReview">
-                <div class="rows" v-for="feedback in reviewList" :key="feedback.key">
+                <div class="rows" v-for="feedback in reviewList" :key="feedback.id">
                   <div class="card card-white post" style="text-align:left">
                     <div class="post-heading">
                       <div class="float-left meta">
@@ -259,25 +250,26 @@ export default {
       this.isViewMedia = false;
       this.isViewReview = true;
     },
-    fetchReviews() {
+    async fetchReviews() {
       const db = getDatabase();
       let viewReviews = this;
-      const reviewsRef = ref(db, '/feedback/' + this.agency_name);
+      const reviewsRef = ref(db, '/feedback/' + this.$route.params.id);
       onValue(reviewsRef, (snapshot) => {
         let data = snapshot.val();
         let reviewList = [];
-        Object.keys(data).forEach((key) => {
-
-          reviewList.push({
-            id: key,
-            customer_name: data[key].username,
-            content: data[key].messageTxt,
-            rating: data[key].rating,
-            time: data[key].time_sent + ' On ' + data[key].date_sent,
-            destination_name: data[key].subjectTxt,
-          });
-          viewReviews.reviewList = reviewList;
-        })
+        if (snapshot.exists()) {
+          Object.keys(data).forEach((key) => {
+            reviewList.push({
+              id: key,
+              customer_name: data[key].username,
+              content: data[key].messageTxt,
+              rating: data[key].rating,
+              time: data[key].time_sent + ' On ' + data[key].date_sent,
+              destination_name: data[key].subjectTxt,
+            });
+            viewReviews.reviewList = reviewList;
+          })
+        }
       })
     }
   }
