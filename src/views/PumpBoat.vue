@@ -252,6 +252,8 @@ export default {
     getCurrentYear: function () {
       return new Date().getFullYear();
     },
+
+    //method to message pump boat
     messageBoat(id) {
       const db = getDatabase();
       const messageRef = ref(db, '/messages/' + this.agency_username + '/' + id);
@@ -274,7 +276,7 @@ export default {
       });
       console.log('convo initiated')
       this.$router.push({ name: 'inbox', params: { id: id } })
-    },
+    },//end
   }
 }
 </script>

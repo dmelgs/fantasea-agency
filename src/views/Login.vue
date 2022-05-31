@@ -33,7 +33,8 @@
     <div class="main">
         <div class="col-md-6 col-sm-12" v-show="!showRegister">
             <div class="login-form">
-                <img class="rounded" src="https://firebasestorage.googleapis.com/v0/b/fantasea-4140a.appspot.com/o/app_media%2Ffantasea.png?alt=media&token=334feb29-1f3b-49a2-96f5-2a57a3b42b3b"> 
+                <img class="rounded"
+                    src="https://firebasestorage.googleapis.com/v0/b/fantasea-4140a.appspot.com/o/app_media%2Ffantasea.png?alt=media&token=334feb29-1f3b-49a2-96f5-2a57a3b42b3b">
                 <h4>Login to your account.</h4>
                 <form>
                     <div class="form-group">
@@ -89,7 +90,7 @@
 <script>
 /* eslint-disable */
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref,set} from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 
 export default {
     name: 'login',
@@ -103,7 +104,7 @@ export default {
             street: '',
         }
     },
-    async beforeCreate() {
+    async beforeCreate() { //if user is logged in already
         onAuthStateChanged(getAuth(), (user) => {
             if (user) {
                 this.$router.push('/')
@@ -114,7 +115,7 @@ export default {
         });
     },
     methods: {
-        async login() {            
+        async login() {  //method to log-in          
             if (this.email == null || this.email == "" || this.password == null || this.password == "") {
                 alert('Some Fields Are Missing')
                 return;
@@ -141,7 +142,7 @@ export default {
                 });
         },
         async signUp(id) { // create user in Authentication Database
-          const db = getDatabase();
+            const db = getDatabase();
             if (this.email == "" || this.password == "" || this.name == "" ||
                 this.contact == "" || this.street == "" || this.city == "" || this.province == "" || this.postal == ""
             ) {
@@ -149,7 +150,7 @@ export default {
                 return;
             }
 
-            createUserWithEmailAndPassword(getAuth(), this.email, this.password)
+            createUserWithEmailAndPassword(getAuth(), this.email, this.password)//method to create
                 .then(() => {
                     this.userId = getAuth().currentUser.uid;
                     set(ref(db, '/users/travel_agency/' + this.userId), {
@@ -184,7 +185,7 @@ export default {
                             alert("Something went wrong" + error.message)
                     }
                 });
-        },
+        },//end 
     }
 }
 </script>
@@ -277,7 +278,8 @@ export default {
 .form-group {
     margin-top: 2%;
 }
-.rounded{
+
+.rounded {
     border-radius: 50%;
     height: 100%;
     width: 150px;

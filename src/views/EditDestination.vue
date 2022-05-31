@@ -170,7 +170,7 @@ export default {
     },
 
     methods: {
-        async UpdateData() {
+        async UpdateData() { //update method
             const db = getDatabase();
             const storage = getStorage();
             if (this.checkedActivities == "" || this.destination_province == "" || this.base_price == "" || this.destination_description == null) {
@@ -221,11 +221,13 @@ export default {
                     });
                 }
             );
-        },
+        },//end update
+
         async CancelUpdate() {
             this.$router.push('/traveldestination');
         },
-        async pickFile() {
+
+        async pickFile() { //select file to upload
             let input = this.$refs.fileInput
             let file = input.files
             if (file && file[0]) {
@@ -241,7 +243,7 @@ export default {
             }
         },
 
-        uploadImage(e) {
+        uploadImage(e) {   //upload images
             let vm = this;
             var selectedFiles = e.target.files;
             for (let i = 0; i < selectedFiles.length; i++) {
@@ -262,7 +264,7 @@ export default {
                 this.mediaData = this.images[i]
             }
         },
-        uploadToFireBase() {
+        uploadToFireBase() { //write to database
             const db = getDatabase();
             const storage = getStorage();
             if (this.images == "" || this.images == null) {
@@ -302,10 +304,12 @@ export default {
                 }
             );
         },
+
         clearMedia() {
             this.images = []
         },
-        removeImage(id) {
+
+        removeImage(id) { // method to remove images
             const db = getDatabase();
             console.log('to delete : ' + id);
             if (window.confirm("Do you really want to delete?")) {
@@ -317,8 +321,8 @@ export default {
                         console.log(error);
                     });
             }
-        }
-    }
+        }//end
+    }//end methods
 }
 </script>
 

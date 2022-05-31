@@ -136,7 +136,7 @@ export default {
     const auth = getAuth();
     const db = getDatabase();
     const dbRef = ref(db);
-    onAuthStateChanged(getAuth(), (user) => {
+    onAuthStateChanged(getAuth(), (user) => { //get signed in users
       if (user) {
         this.isUserId = user.uid;
         get(child(dbRef, '/users/travel_agency/' + this.isUserId)).then((snapshot) => {
@@ -236,7 +236,7 @@ export default {
     })
   },
   methods: {
-    logOut() {
+    logOut() { //sign out method----
       signOut(getAuth()).then(() => {
         this.isSignIn = false;
         this.$router.push('/login')

@@ -241,6 +241,7 @@ export default {
     })//end onAuth
   },
   methods: {
+    //paypal sdk methods
     setLoaded: function (resp) {
       this.loaded = true;
       window.paypal
@@ -295,7 +296,8 @@ export default {
           }
         })
         .render(this.$refs.paypal);
-    },
+    },//end paypal
+
     openCreate() {
       this.showCreate = true
       this.showDestination = false
@@ -305,7 +307,7 @@ export default {
       this.showDestination = true
       this.showCreate = false
     },
-
+    //method to select file to upload
     async pickFile() {
       let input = this.$refs.fileInput
       let file = input.files
@@ -347,7 +349,7 @@ export default {
         this.isResultBad = "Include a base price";
         return;
       }
-      
+      //database reference
       const storageRef = sRef(storage, 'travel_agency/' + this.username + '/destinations/' + this.destination_name + '/' + this.imageName);
       const uploadTask = uploadBytesResumable(storageRef, this.imageData);
       uploadTask.on('state_changed',
@@ -395,7 +397,7 @@ export default {
           });
         });
 
-    },
+    },//end createdestination method
 
     async fetchData() {
       const db = getDatabase();
@@ -417,9 +419,12 @@ export default {
         onlyOnce: true
       });
     },//end fetch data
+
+    //go to Edit page
     async goEdit(id) {
       this.$router.push({ name: 'edit-destination', params: { id: id } })
     },
+    //delete destination
     async deleteData(id) {
       const db = getDatabase();
       const dataBaseRef = ref(db, '/destinations/');
@@ -445,6 +450,7 @@ export default {
     getCurrentYear: function () {
       return new Date().getFullYear();
     },
+    //promote destination methods
     promoteDestination(id) {
       this.destination_name = id;
       console.log(this.destination_name);
@@ -468,7 +474,8 @@ export default {
        this.isConfirm = true
       console.log(this.amount +'/'+ this.days)
     },
-  }
+    //end 
+  }//end methods
 }
 </script>
 

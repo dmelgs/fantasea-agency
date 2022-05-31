@@ -82,7 +82,7 @@ export default {
     this.currentYear = this.getCurrentYear();
     const db = getDatabase();
     const dbRef = ref(db);
-    onAuthStateChanged(getAuth(), (user) => {
+    onAuthStateChanged(getAuth(), (user) => { //get signed in user
       if (user) {
 
         this.userId = user.uid;
@@ -112,10 +112,10 @@ export default {
 
   },
   methods: {
-    openEdit() {
+    openEdit() {//enable edit mode
       this.isEdit = true;
     },
-    openConvo(id) {
+    openConvo(id) { //open chat method
       const db = getDatabase();
       this.userKey = id;
       this.isOpenConvo = true;
@@ -137,6 +137,7 @@ export default {
         viewMessage.messages = messages;
       });
     },
+    //send message method
     sendMessage() {
       const db = getDatabase();
       const dbRef = ref(db);
@@ -174,7 +175,8 @@ export default {
       this.inputMessage = "";
       console.log("message sent")
 
-    },
+    },//end send message
+
     //get date,time,yr method
     getDate: function () {
       return new Date().toLocaleDateString();

@@ -184,16 +184,12 @@ export default {
     });
   },
   methods: {
-    async openChat() {
-      this.isUser = false;
-      this.isChat = true;
-    },
     async fetchData() {
-
+      //database references
       const db = getDatabase();
       const storage = getStorage();
-
       const dbRef = ref(db, '/destinations/');
+      //
       onValue(dbRef, (snapshot) => {
         snapshot.forEach((childSnapshot) => {
           if (childSnapshot.val().agency_name == this.$route.params.id) {
@@ -250,7 +246,7 @@ export default {
       this.isViewMedia = false;
       this.isViewReview = true;
     },
-    async fetchReviews() {
+    async fetchReviews() { //get reviews
       const db = getDatabase();
       let viewReviews = this;
       const reviewsRef = ref(db, '/feedback/' + this.$route.params.id);

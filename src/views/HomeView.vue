@@ -139,10 +139,11 @@ export default {
   },
   methods: {
     async fetchData() {
-
+      //database ref
       const db = getDatabase();
       const storage = getStorage();
       const dbRef = ref(db, '/destinations/');
+      //
       onValue(dbRef, (snapshot) => {
         snapshot.forEach((childSnapshot) => {
           const storageRef = sRef(storage, '/travel_agency/' + childSnapshot.val().agency_name + '/destinations/' + childSnapshot.val().destination_name + '/' + childSnapshot.val().pic_name)
@@ -161,7 +162,7 @@ export default {
       })//end onValue
     }, // end fetchData
 
-    async fetchPromo() {
+    async fetchPromo() { //get paid destinations
       const db = getDatabase();
       const storage = getStorage();
       const dbRef = ref(db, '/promo/');
@@ -190,12 +191,12 @@ export default {
 
         })
       })
-    },
-    viewDestination(id) {
+    },//end
+
+    viewDestination(id) { //view method
       const db = getDatabase();
       this.showModal = true
       this.viewGalleryList = [];
-
       let viewDetail = this;
       const messageRef = ref(db, '/destinations/');
       onValue(messageRef, (snapshot) => {

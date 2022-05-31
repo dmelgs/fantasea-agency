@@ -384,6 +384,7 @@ export default {
         onAuthStateChanged(getAuth(), (user) => {
             if (user) {
                 this.userId = user.uid;
+                //get logged in user
                 get(child(dbRef, '/users/travel_agency/' + this.userId)).then((snapshot) => {
                     if (snapshot.exists()) {
 
@@ -486,7 +487,7 @@ export default {
         })
     },
     methods: {
-
+        //method for select file image
         async pickFile() {
             let input = this.$refs.fileInput
             let file = input.files
@@ -506,7 +507,7 @@ export default {
         async ResetButton() {
             this.previewImage = "";
         },
-
+        //method for navigating sidemenu tabs
         async openGeneralTab() {
 
             this.isGenTab = true;
@@ -548,7 +549,8 @@ export default {
             this.isPassTab = false;
             this.isReportTab = false;
             this.isSocialTab = false;
-        },
+        },//end navigate side menu method
+
         async updateInfo() {
             const db = getDatabase();
             const dbRef = ref(db);
@@ -631,9 +633,10 @@ export default {
                     console.log("Social Media Link Updated ")
                 })
             }
-            //end Update                   
+            //end Update social                  
         },
 
+        //method to submit report to admin
         async submitReport() {
             const db = getDatabase();
             if (this.report_subject == "" || this.report_content == "") {
@@ -663,7 +666,7 @@ export default {
         getCurrentYear: function () {
             return new Date().getFullYear();
         },
-
+        //email verification method
         sendVerification() {
             const auth = getAuth();
             sendEmailVerification(auth.currentUser)
@@ -671,6 +674,8 @@ export default {
                     console.log('verification sent!')
                 });
         },
+
+        //method to approve pending request
         approveBooking(id,destination_name, destination_province, scheduled_date,
             transaction_date, boat_name, boat_capacity,
             customer_name, price, payID, activities) {
@@ -692,6 +697,7 @@ export default {
                 agency_name: this.$route.params.id,
             });
 
+            //push notifications to the customer
             const notifRef = ref(db, '/notifications/' + customer_name);
             const notifContent = push(notifRef);
             set(notifContent, {
@@ -730,7 +736,9 @@ export default {
                 });
 
             alert('Booking approved!');
-        },
+        },//end approve method
+
+        //method to update new password
         async savePassword() {
             const auth = getAuth();
             const user = auth.currentUser;
@@ -749,7 +757,7 @@ export default {
             });
         },
 
-        //to update ticket status
+        //to update ticket status to complete
         async completeTicket(id, payID, ticketStatus) {
             const db = getDatabase();
             if (ticketStatus == 'Cancelled') {
@@ -771,11 +779,15 @@ export default {
                 })
             })
         },
+        
+        //method for sending message to pump boat operator
         messageBoat(id) {
+            //database references
             const db = getDatabase();
             const messageRef = ref(db, '/messages/' + this.$route.params.id + '/' + id);
             const amessageRef = ref(db, '/MessageUsers/' + id);
             const message = push(messageRef);
+            //
             set(message, {
                 username: this.$route.params.id,
                 content: 'Hello, '+ id,
@@ -794,11 +806,15 @@ export default {
             console.log('convo initiated')
              this.$router.push({ name: 'inbox', params: { id: id } })
         },
+
+        //method for sending message to customer
         messageCustomer(id) {
+             //database references
             const db = getDatabase();
             const messageRef = ref(db, '/messages/' + this.$route.params.id + '/' + id);
             const amessageRef = ref(db, '/MessageUsers/' + id);
             const message = push(messageRef);
+            //
             set(message, {
                 username: this.$route.params.id,
                 content: 'Hello, '+ id,
